@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+
+    <!-- Start Banner Hero -->
+    <div id="template-mo-zay-hero-carousel" class="carousel slide" data-bs-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="0" class="active"></li>
+            <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="1"></li>
+            <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="2"></li>
+            <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner" style="background-color: white;">
+            <div class="carousel-item active">
+                 <div class="mx-auto col-md-8 col-lg-12 order-lg-last">
+                     <img class="img-fluid" src="../assets/img/11.png" alt="">
+                 </div>
+            </div>
+            <div class="carousel-item">
+                 <div class="mx-auto col-md-8 col-lg-12 order-lg-last">
+                     <img class="img-fluid" src="../assets/img/22.png" alt="">
+                 </div>
+            </div>
+            <div class="carousel-item">
+                 <div class="mx-auto col-md-8 col-lg-12 order-lg-last">
+                     <img class="img-fluid" src="../assets/img/33.png" alt="">
+                 </div>
+            </div>
+            <div class="carousel-item">
+                 <div class="mx-auto col-md-8 col-lg-12 order-lg-last">
+                     <img class="img-fluid" src="../assets/img/44.png" alt="">
+                 </div>
+            </div>
+        </div>
+        <a class="carousel-control-prev text-decoration-none w-auto ps-3" href="#template-mo-zay-hero-carousel" role="button" data-bs-slide="prev">
+            <i class="fas fa-chevron-left"></i>
+        </a>
+        <a class="carousel-control-next text-decoration-none w-auto pe-3" href="#template-mo-zay-hero-carousel" role="button" data-bs-slide="next">
+            <i class="fas fa-chevron-right"></i>
+        </a>
+    </div>
+    <!-- End Banner Hero -->
+
+
+    <!-- Start Categories of The Month -->
+    <section class="container py-5">
+        <div class="row text-center pt-3">
+            <div class="col-lg-6 m-auto">
+                <h1 class="h1">Best Product</h1>
+                <p>
+                    이번주 가장 인기 많은 베스트 3
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-md-4 p-5 mt-3" th:each="vo:${tList}">
+                <a th:href="@{/shop/detail(gno=${vo.gno})}"><img th:src="${vo.goods_image}" class="rounded-circle img-fluid border"></a>
+                <h5 class="text-center mt-3 mb-3" th:text="${vo.goods_name}"></h5>
+                <p class="text-center"><a th:href="@{/shop/detail(gno=${vo.gno})}" class="btn btn-success">Go Shop</a></p>
+            </div>
+        </div>
+    </section>
+    <!-- End Categories of The Month -->
+
+
+    <!-- Start Featured Product -->
+    <section class="bg-light">
+        <div class="container py-5">
+            <div class="row text-center py-3">
+                <div class="col-lg-6 m-auto">
+                    <h1 class="h1">New product</h1>
+                    <p>
+                       	매일 등록되는 오늘의 신상품 3
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-4 mb-4" th:each="vo:${rList}">
+                    <div class="card h-100">
+                        <a th:href="@{/shop/detail(gno=${vo.gno})}">
+                            <img th:src="${vo.goods_image}" class="card-img-top" alt="...">
+                        </a>
+                        <div class="card-body">
+                            <ul class="list-unstyled d-flex justify-content-between">
+                                <li>
+                                    <i class="text-warning fa fa-star"></i>
+                                    <i class="text-warning fa fa-star"></i>
+                                    <i class="text-warning fa fa-star"></i>
+                                    <i class="text-warning fa fa-star"></i>
+                                    <i class="text-muted fa fa-star"></i>
+                                </li>
+                                <li class="text-muted text-right" th:text="${vo.price}+'원'"></li>
+                            </ul>
+                            <a th:href="@{/shop/detail(gno=${vo.gno})}" class="h3 text-decoration-none text-dark" th:text="${vo.goods_name}"></a>
+                            <p class="card-text" th:text="${vo.brand}"></p>
+                            <p class="text-muted">Reviews (24)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Featured Product -->
+</body>
+</html>

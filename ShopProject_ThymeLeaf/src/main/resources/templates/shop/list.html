@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	.cateul li a{
+		color: black;
+	}
+	.cateActive{
+		font-weight: bold;
+	}
+	.cookieWrap{
+		position: absolute;
+		top: 250px;
+		right: 70px;
+		
+		border: none;
+		border-radius: 16px;
+		color: white;
+		padding: 12px;
+		font-weight: bold;
+	}
+	.cookieWrap a{
+		color: black;
+		text-decoration: none;
+	}
+	.cookieWrap a:hover{
+		cursor: pointer;
+	}
+</style>
+</head>
+
+<body>
+    <!-- Start Content -->
+    <div class="container py-5">
+        <div class="row">
+
+            <div class="col-lg-3">
+                <h1 class="h2 pb-4">Categories</h1>
+                <ul class="list-unstyled cateul">
+                    <li class="pb-3">
+                        <a class="collapsed d-flex justify-content-between h3 text-decoration-none" 
+                        th:href="@{/shop/list(cno=${vo.cno})}" th:each="vo:${cList}" th:text="${vo.category_name}"> 
+                             
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+
+            <div class="col-lg-9">
+                <div class="row">
+                	<div class="col-md-6">
+                		<h3 th:text="${cList[cno-1].category_name}"></h3>
+                	</div>
+                    <div class="col-md-6 pb-4">
+                    	<form method="post" action="/shop/list">
+	                        <div class="d-flex">
+			                    <input type="text" class="form-control" id="inputModalSearch" name="fd" placeholder="Search ..." th:value="${fd}">
+			                    <input type="hidden" name=cno th:value="${cno}">
+			                    <button type="submit" class="input-group-text bg-success text-light">
+			                    	<i class="fa fa-fw fa-search text-white"></i>
+			                    </button>
+	                        </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4" th:each="vo:${list}">
+                        <div class="card mb-4 product-wap rounded-0">
+                            <div class="card rounded-0">
+                                <img class="card-img rounded-0 img-fluid" th:src="${vo.goods_image}">
+                                <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <a th:href="@{/shop/detail(gno=${vo.gno})}" class="h3 text-decoration-none" th:text="${vo.goods_name}"></a>
+                                <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
+                                    <li th:text="${vo.brand}"></li>
+                                    <li class="pt-2">
+                                        <span class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
+                                        <span class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
+                                        <span class="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
+                                        <span class="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
+                                        <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
+                                    </li>
+                                </ul>
+                                <ul class="list-unstyled d-flex justify-content-center mb-1">
+                                </ul>
+                                <p class="text-center mb-0" th:text="${vo.price+'원'}"></p>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div div="row">
+                    <ul class="pagination pagination-lg justify-content-end">
+                        <li class="page-item" th:if="${startpage>1}">
+                            <a class="page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark" 
+                            th:href="@{/shop/list(cno=${cno},fd=${fd},page=${startpage-1})}">&lt;</a>
+                        </li>
+                        <li class="page-item" th:each="i:${#numbers.sequence(startpage,endpage)}" th:classappend="${curpage==i?'disabled':''}">
+                            <a class="page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark" th:classappend="${curpage==i?'active':''}"
+                            th:href="@{/shop/list(cno=${cno},fd=${fd},page=${i})}" th:text="${i}"></a>
+                        </li>
+                        <li class="page-item" th:if="${endpage<totalpage}">
+                            <a class="page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark" 
+                            th:href="@{/shop/list(cno=${cno},fd=${fd},page=${endpage+1})}">&gt;</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- End Content -->
+    
+     <div class="cookieWrap">
+		<h5><b style="color: black">최근 본 상품</b></h5>
+		<div style="background-color: white; border: 1px solid black;margin-bottom: 3px;" th:each="vo:${ckList}">
+			<a href="#">
+			    <div class="filter_inner">
+			    	<img th:src="${vo.goods_image}" width="130px" height="100px">
+			    	<p th:text="${vo.goods_name}"></p>
+			    </div>
+		    </a>
+		</div>
+	</div>
+</body>
+</html>
